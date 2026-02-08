@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "KrushiSakha",
-    "slug": "KrushiSakha",
+    "slug": "krushi-sakha-v2",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,10 +20,16 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.sakshamg92.krushisakhav2"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "74bb7e86-34f2-4427-b624-7eb659a776dd"
+      }
     }
   }
 }
