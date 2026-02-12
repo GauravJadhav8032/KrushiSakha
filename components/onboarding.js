@@ -11,6 +11,7 @@ import React, { useRef, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { OnboardingScreens } from "../constants/onboardingScreens";
 import { LinearGradient } from "expo-linear-gradient"; // Install: expo install expo-linear-gradient
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width, height } = Dimensions.get("window");
 
@@ -85,7 +86,10 @@ const Onboarding = () => {
       {currentIndex === OnboardingScreens.length - 1 && (
         <TouchableOpacity
           style={styles.bottomButton}
-          onPress={() => navigation.replace("Login")}
+          onPress={async () => {
+            await AsyncStorage.setItem("hasSeenOnboarding", "true");
+            navigation.replace("Login");
+          }}
           activeOpacity={0.8}
         >
           <LinearGradient

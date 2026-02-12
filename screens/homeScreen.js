@@ -220,7 +220,28 @@ export default function HomeScreen() {
           fontSize: 12,
           fontWeight: "600",
         },
-        tabBarIcon: ({ color, size, focused }) => {
+        // tabBarIcon: ({ color, size, focused }) => {
+        //   let icon;
+
+        //   if (route.name === "Home") icon = focused ? "home" : "home-outline";
+        //   else if (route.name === "AIChat")
+        //     icon = focused
+        //       ? "chatbubble-ellipses"
+        //       : "chatbubble-ellipses-outline";
+        //   else if (route.name === "Community")
+        //     icon = focused ? "people" : "people-outline";
+        //   else if (route.name === "Experts")
+        //     icon = focused ? "person" : "person-outline";
+        //   else if (route.name === "Profile")
+        //     icon = focused ? "person-circle" : "person-circle-outline";
+
+        //   return (
+        //     <View style={focused ? styles.activeTabIcon : null}>
+        //       <Ionicons name={icon} size={24} color={color} />
+        //     </View>
+        //   );
+        // },
+        tabBarIcon: ({ color, focused }) => {
           let icon;
 
           if (route.name === "Home") icon = focused ? "home" : "home-outline";
@@ -236,7 +257,9 @@ export default function HomeScreen() {
             icon = focused ? "person-circle" : "person-circle-outline";
 
           return (
-            <View style={focused ? styles.activeTabIcon : null}>
+            <View
+              style={[styles.tabIconContainer, focused && styles.activeTabIcon]}
+            >
               <Ionicons name={icon} size={24} color={color} />
             </View>
           );
@@ -530,9 +553,20 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     letterSpacing: 0.5,
   },
+  // activeTabIcon: {
+  //   backgroundColor: "#E8F5E9",
+  //   padding: 8,
+  //   borderRadius: 12,
+  // },
+  tabIconContainer: {
+    width: 40,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
   activeTabIcon: {
-    backgroundColor: "#E8F5E9",
-    padding: 8,
-    borderRadius: 12,
+    // backgroundColor: "#E8F5E9",
+    // borderRadius: 20,
   },
 });
