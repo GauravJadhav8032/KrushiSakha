@@ -1,5 +1,4 @@
-const BASE_URL = "http://YOUR_BACKEND_IP:PORT/api/auth";
-// Example: http://192.168.1.10:8000/api/auth
+const BASE_URL = "http://192.168.48.133:5000/users";
 
 export const loginUser = async (email, password) => {
   const response = await fetch(`${BASE_URL}/login`, {
@@ -19,13 +18,24 @@ export const loginUser = async (email, password) => {
   return data;
 };
 
-export const registerUser = async (payload) => {
+export const registerUser = async ({ name, email, password }) => {
+  // Split full name into first and last
+  const [firstname, ...lastnameParts] = name.trim().split(" ");
+  const lastname = lastnameParts.join(" ");
+
   const response = await fetch(`${BASE_URL}/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify({
+      email,
+      fullname: {
+        firstname,
+        lastname,
+      },
+      password,
+    }),
   });
 
   const data = await response.json();
