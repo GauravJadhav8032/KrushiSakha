@@ -14,13 +14,15 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { loginUser } from "../services/authService";
-import { saveToken } from "../utils/storage";
+import { useAuth } from "../App"; // ✅ Import useAuth
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const { signIn } = useAuth(); // ✅ Get signIn from context
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -31,9 +33,12 @@ const LoginScreen = ({ navigation }) => {
     setLoading(true);
 
     try {
-      // const res = await loginUser(email, password);
-      // await saveToken(res.token);
-      navigation.replace("Home");
+      const res = await loginUser(email, password);
+
+      // ✅ Use context signIn - this will automatically redirect to Home
+      await signIn(res.token, res.user);
+
+      // No need to navigate - the AppNavigator will handle it automatically!
     } catch (error) {
       Alert.alert("Login Failed", error.message);
     } finally {
@@ -148,7 +153,7 @@ const LoginScreen = ({ navigation }) => {
           {/* Register Link */}
           <View style={styles.registerContainer}>
             <Text style={styles.registerText}>Don't have an account? </Text>
-            <TouchableOpacity onPress={() => navigation.replace("Register")}>
+            <TouchableOpacity onPress={() => navigation.navigate("Register")}>
               <Text style={styles.registerLink}>Register</Text>
             </TouchableOpacity>
           </View>

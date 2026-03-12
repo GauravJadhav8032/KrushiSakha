@@ -10,7 +10,7 @@ import {
 import React, { useRef, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { OnboardingScreens } from "../constants/onboardingScreens";
-import { LinearGradient } from "expo-linear-gradient"; // Install: expo install expo-linear-gradient
+import { LinearGradient } from "expo-linear-gradient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width, height } = Dimensions.get("window");
@@ -18,6 +18,8 @@ const { width, height } = Dimensions.get("window");
 const Onboarding = () => {
   const navigation = useNavigation();
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  // ❌ REMOVED: const { completeOnboarding } = useAuth();
 
   const onViewRef = useRef(({ viewableItems }) => {
     if (viewableItems.length > 0) {
@@ -28,6 +30,22 @@ const Onboarding = () => {
   const viewConfigRef = useRef({
     viewAreaCoveragePercentThreshold: 50,
   });
+
+  // ✅ Handle completing onboarding
+  const handleGetStarted = async () => {
+    try {
+      await AsyncStorage.setItem("hasSeenOnboarding", "true");
+
+      // ✅ Reset navigation stack so user can't go back to onboarding
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Login" }],
+      });
+    } catch (error) {
+      console.log("Error saving onboarding state:", error);
+      navigation.replace("Login");
+    }
+  };
 
   const renderItem = ({ item }) => (
     <View style={styles.slide}>
@@ -82,14 +100,11 @@ const Onboarding = () => {
         ))}
       </View>
 
-      {/* Bottom Button */}
+      {/* Bottom Button - Only show on last screen */}
       {currentIndex === OnboardingScreens.length - 1 && (
         <TouchableOpacity
           style={styles.bottomButton}
-          onPress={async () => {
-            await AsyncStorage.setItem("hasSeenOnboarding", "true");
-            navigation.replace("Login");
-          }}
+          onPress={handleGetStarted} // ✅ Using the new function
           activeOpacity={0.8}
         >
           <LinearGradient
@@ -100,6 +115,17 @@ const Onboarding = () => {
           >
             <Text style={styles.buttonText}>Get Started</Text>
           </LinearGradient>
+        </TouchableOpacity>
+      )}
+
+      {/* Skip Button - Show on all screens except last */}
+      {currentIndex < OnboardingScreens.length - 1 && (
+        <TouchableOpacity
+          style={styles.skipButton}
+          onPress={handleGetStarted}
+          activeOpacity={0.7}
+        >
+          <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>
       )}
     </View>
@@ -206,5 +232,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "700",
     letterSpacing: 0.5,
+  },
+  // ✅ NEW: Skip button styles
+  skipButton: {
+    position: "absolute",
+    top: 50,
+    right: 24,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
+  skipText: {
+    color: "#2E7D32",
+    fontSize: 16,
+    fontWeight: "600",
   },
 });
