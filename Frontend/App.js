@@ -11,6 +11,7 @@ import LoginScreen from "./screens/loginScreen";
 import RegisterScreen from "./screens/registerScreen";
 import HomeScreen from "./screens/homeScreen";
 import ServicesScreen from "./screens/servicesScreen";
+import SchemeDetailsScreen from "./screens/SchemeDetailsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -134,6 +135,7 @@ function AppNavigator() {
             <Stack.Screen name="Register" component={RegisterScreen} />
           </>
         )}
+        <Stack.Screen name="SchemeDetails" component={SchemeDetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

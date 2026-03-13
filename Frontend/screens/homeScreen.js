@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   Dimensions,
+  SafeAreaView,
 } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
@@ -23,144 +24,148 @@ const { width } = Dimensions.get("window");
 
 function Dashboard({ navigation }) {
   return (
-    <View style={styles.container}>
-      {/* Gradient Background */}
-      <LinearGradient
-        colors={["#E8F5E9", "#F1F8E9", "#FFFFFF"]}
-        style={StyleSheet.absoluteFillObject}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 0.3 }}
-      />
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
+      <View style={styles.container}>
+        {/* Gradient Background */}
+        <LinearGradient
+          colors={["#E8F5E9", "#F1F8E9", "#FFFFFF"]}
+          style={StyleSheet.absoluteFillObject}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 0, y: 0.3 }}
+        />
 
-      {/* Decorative Circle */}
-      <View style={styles.decorativeCircle} />
+        {/* Decorative Circle */}
+        <View style={styles.decorativeCircle} />
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
-      >
-        {/* Header */}
-        <View style={styles.header}>
-          <View style={styles.headerLeft}>
-            <View style={styles.logoContainer}>
-              <Image
-                source={require("../assets/krushisakha_logo.png")}
-                style={styles.logo}
-                resizeMode="contain"
-              />
-            </View>
-            <View>
-              <Text style={styles.appName}>Krushi Sakha</Text>
-              <Text style={styles.tagline}>Empowering Farmers</Text>
-            </View>
-          </View>
-          <TouchableOpacity style={styles.notificationButton}>
-            <Ionicons name="notifications" size={24} color="#2E7D32" />
-            <View style={styles.badge} />
-          </TouchableOpacity>
-        </View>
-
-        {/* Welcome Section */}
-        <View style={styles.welcomeSection}>
-          <Text style={styles.welcome}>Hello, Farmer! 👋</Text>
-          <Text style={styles.subtitle}>What would you like to do today?</Text>
-        </View>
-
-        {/* Quick Actions Grid */}
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Quick Actions</Text>
-        </View>
-
-        <View style={styles.grid}>
-          <ActionCard
-            icon="leaf"
-            label="Govt Schemes"
-            color="#4CAF50"
-            onPress={() => navigation.navigate("Services")}
-          />
-          <ActionCard
-            icon="chatbubble-ellipses"
-            label="AI Chat"
-            color="#66BB6A"
-            onPress={() => navigation.navigate("AIChat")}
-          />
-          <ActionCard
-            icon="people"
-            label="Expert Help"
-            color="#81C784"
-            onPress={() => navigation.navigate("Experts")}
-          />
-          <ActionCard
-            icon="chatbox"
-            label="Community"
-            color="#A5D6A7"
-            onPress={() => navigation.navigate("Community")}
-          />
-        </View>
-
-        {/* Info Banner */}
-        <TouchableOpacity style={styles.banner} activeOpacity={0.8}>
-          <LinearGradient
-            colors={["#C8E6C9", "#E8F5E9"]}
-            style={styles.bannerGradient}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-          >
-            <View style={styles.bannerIcon}>
-              <Ionicons name="megaphone" size={24} color="#2E7D32" />
-            </View>
-            <View style={styles.bannerContent}>
-              <Text style={styles.bannerTitle}>New Update!</Text>
-              <Text style={styles.bannerText}>
-                Government subsidy available for crop insurance. Apply now!
-              </Text>
-            </View>
-            <Ionicons name="chevron-forward" size={20} color="#558B2F" />
-          </LinearGradient>
-        </TouchableOpacity>
-
-        {/* Featured Services */}
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Featured Services</Text>
-          <TouchableOpacity>
-            <Text style={styles.seeAll}>See All</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.featuredContainer}>
-          <FeatureCard
-            icon="sunny"
-            title="Weather Forecast"
-            description="7-day weather updates"
-            color="#FFA726"
-          />
-          <FeatureCard
-            icon="water"
-            title="Crop Care Tips"
-            description="Expert farming advice"
-            color="#42A5F5"
-          />
-        </View>
-
-        {/* CTA Button */}
-        <TouchableOpacity
-          style={styles.ctaButton}
-          onPress={() => navigation.navigate("Experts")}
-          activeOpacity={0.8}
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContent}
         >
-          <LinearGradient
-            colors={["#2E7D32", "#1B5E20"]}
-            style={styles.ctaGradient}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
+          {/* Header */}
+          <View style={styles.header}>
+            <View style={styles.headerLeft}>
+              <View style={styles.logoContainer}>
+                <Image
+                  source={require("../assets/krushisakha_logo.png")}
+                  style={styles.logo}
+                  resizeMode="contain"
+                />
+              </View>
+              <View>
+                <Text style={styles.appName}>Krushi Sakha</Text>
+                <Text style={styles.tagline}>Empowering Farmers</Text>
+              </View>
+            </View>
+            <TouchableOpacity style={styles.notificationButton}>
+              <Ionicons name="notifications" size={24} color="#2E7D32" />
+              <View style={styles.badge} />
+            </TouchableOpacity>
+          </View>
+
+          {/* Welcome Section */}
+          <View style={styles.welcomeSection}>
+            <Text style={styles.welcome}>Hello, Farmer! 👋</Text>
+            <Text style={styles.subtitle}>
+              What would you like to do today?
+            </Text>
+          </View>
+
+          {/* Quick Actions Grid */}
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Quick Actions</Text>
+          </View>
+
+          <View style={styles.grid}>
+            <ActionCard
+              icon="leaf"
+              label="Govt Schemes"
+              color="#4CAF50"
+              onPress={() => navigation.navigate("Services")}
+            />
+            <ActionCard
+              icon="chatbubble-ellipses"
+              label="AI Chat"
+              color="#66BB6A"
+              onPress={() => navigation.navigate("AIChat")}
+            />
+            <ActionCard
+              icon="people"
+              label="Expert Help"
+              color="#81C784"
+              onPress={() => navigation.navigate("Experts")}
+            />
+            <ActionCard
+              icon="chatbox"
+              label="Community"
+              color="#A5D6A7"
+              onPress={() => navigation.navigate("Community")}
+            />
+          </View>
+
+          {/* Info Banner */}
+          <TouchableOpacity style={styles.banner} activeOpacity={0.8}>
+            <LinearGradient
+              colors={["#C8E6C9", "#E8F5E9"]}
+              style={styles.bannerGradient}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+            >
+              <View style={styles.bannerIcon}>
+                <Ionicons name="megaphone" size={24} color="#2E7D32" />
+              </View>
+              <View style={styles.bannerContent}>
+                <Text style={styles.bannerTitle}>New Update!</Text>
+                <Text style={styles.bannerText}>
+                  Government subsidy available for crop insurance. Apply now!
+                </Text>
+              </View>
+              <Ionicons name="chevron-forward" size={20} color="#558B2F" />
+            </LinearGradient>
+          </TouchableOpacity>
+
+          {/* Featured Services */}
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Featured Services</Text>
+            <TouchableOpacity>
+              <Text style={styles.seeAll}>See All</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.featuredContainer}>
+            <FeatureCard
+              icon="sunny"
+              title="Weather Forecast"
+              description="7-day weather updates"
+              color="#FFA726"
+            />
+            <FeatureCard
+              icon="water"
+              title="Crop Care Tips"
+              description="Expert farming advice"
+              color="#42A5F5"
+            />
+          </View>
+
+          {/* CTA Button */}
+          <TouchableOpacity
+            style={styles.ctaButton}
+            onPress={() => navigation.navigate("Experts")}
+            activeOpacity={0.8}
           >
-            <Ionicons name="call" size={20} color="#FFFFFF" />
-            <Text style={styles.ctaText}>Talk to an Expert Now</Text>
-            <Ionicons name="arrow-forward" size={20} color="#FFFFFF" />
-          </LinearGradient>
-        </TouchableOpacity>
-      </ScrollView>
-    </View>
+            <LinearGradient
+              colors={["#2E7D32", "#1B5E20"]}
+              style={styles.ctaGradient}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+            >
+              <Ionicons name="call" size={20} color="#FFFFFF" />
+              <Text style={styles.ctaText}>Talk to an Expert Now</Text>
+              <Ionicons name="arrow-forward" size={20} color="#FFFFFF" />
+            </LinearGradient>
+          </TouchableOpacity>
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 }
 
