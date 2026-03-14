@@ -1,5 +1,7 @@
-// ✅ YOUR COMPUTER'S IP ADDRESS
-const BASE_URL = "http://10.226.62.94:5000/users";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Constants from "expo-constants";
+
+const BASE_URL = `${Constants.expoConfig.extra.BASE_URL}/users`;
 
 export const loginUser = async (email, password) => {
   try {
@@ -21,7 +23,7 @@ export const loginUser = async (email, password) => {
   } catch (error) {
     if (error.message === "Network request failed") {
       throw new Error(
-        "Cannot connect to server. Make sure backend is running and phone is on same WiFi.",
+        "Cannot connect to server. Make sure backend is running.",
       );
     }
     throw error;
@@ -58,7 +60,7 @@ export const registerUser = async ({ name, email, password }) => {
   } catch (error) {
     if (error.message === "Network request failed") {
       throw new Error(
-        "Cannot connect to server. Make sure backend is running and phone is on same WiFi.",
+        "Cannot connect to server. Make sure backend is running.",
       );
     }
     throw error;
@@ -87,7 +89,6 @@ export const getUserProfile = async (token) => {
   }
 };
 
-// ✅ NEW: Update user profile
 export const updateUserProfile = async (token, profileData) => {
   try {
     const response = await fetch(`${BASE_URL}/profile`, {

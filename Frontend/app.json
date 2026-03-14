@@ -27,6 +27,7 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
+      "BASE_URL": "https://krushisakha.onrender.com",
       "eas": {
         "projectId": "74bb7e86-34f2-4427-b624-7eb659a776dd"
       }

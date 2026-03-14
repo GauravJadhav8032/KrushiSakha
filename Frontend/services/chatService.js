@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Constants from "expo-constants";
 
-const BASE_URL = "http://10.226.62.94:5000/chat";
+const BASE_URL = `${Constants.expoConfig.extra.BASE_URL}/chat`;
 const LANGUAGE_KEY = "chat_language";
 
 /**
